@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
+  AtSign,
   BriefcaseBusiness,
   CalendarDays,
   Check,
@@ -89,6 +90,7 @@ const projects = [
     description: "Un espace de travail interne avec chat, tickets IT, tâches, rôles et notifications en temps réel.",
     tags: ["Laravel", "Livewire", "Reverb"],
     tone: "cyan",
+    url: "https://geoso.fr/",
   },
   {
     number: "02",
@@ -97,6 +99,7 @@ const projects = [
     description: "Du prospect à la consultation, une suite complète pour piloter l'activité des psychologues.",
     tags: ["React", "Inertia", "Facturation"],
     tone: "violet",
+    url: "https://psyphone.ma/",
   },
   {
     number: "03",
@@ -105,6 +108,7 @@ const projects = [
     description: "Un portail juridique moderne combinant gestion documentaire, contenus SEO et CRM commercial.",
     tags: ["React", "Laravel", "SEO"],
     tone: "orange",
+    url: "https://houkouki.com/",
   },
   {
     number: "04",
@@ -113,6 +117,25 @@ const projects = [
     description: "Un CRM assurance multi-produits pour fluidifier devis, souscriptions, renouvellements et sinistres.",
     tags: ["Laravel", "MySQL", "API"],
     tone: "blue",
+    url: "https://digiassur.ma/",
+  },
+  {
+    number: "05",
+    title: "Assurwi",
+    type: "Assurance · Expérience client",
+    description: "Une présence digitale dédiée aux besoins d'assurance, pensée pour guider les visiteurs vers la bonne solution.",
+    tags: ["Web", "Assurance", "UX"],
+    tone: "cyan",
+    url: "https://assurwi.ma/",
+  },
+  {
+    number: "06",
+    title: "Loona",
+    type: "Produit digital · Web",
+    description: "Un univers web complémentaire dans l'écosystème des produits digitaux conçus et accompagnés avec soin.",
+    tags: ["Web", "Design", "Delivery"],
+    tone: "violet",
+    url: "https://loona.ma/",
   },
 ];
 
@@ -186,7 +209,9 @@ export default function Home() {
           <div className="rail-socials">
             <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={16} /></a>
             <a href="tel:+2120635178483" aria-label="Téléphone"><Phone size={16} /></a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /></a>
+            <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /></a>
+            <a href="https://www.linkedin.com/in/mamadou-diallo-06343b55/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
+            <a href="https://x.com/MomzDIALLO" target="_blank" rel="noreferrer" aria-label="X"><AtSign size={16} /></a>
           </div>
           <p>© 2026 Mamadou Diallo</p>
         </div>
@@ -301,7 +326,7 @@ export default function Home() {
           <div className="page-width">
             <div className="projects-heading">
               <SectionHeading eyebrow="Projets sélectionnés" title="Des interfaces au service du réel." detail="Quelques terrains de jeu où le produit, la technique et l'usage se rencontrent." />
-              <div className="project-count"><strong>04</strong><span>projets<br />présentés</span></div>
+              <div className="project-count"><strong>06</strong><span>projets<br />présentés</span></div>
             </div>
             <div className="projects-grid">
               {projects.map((project) => (
@@ -313,6 +338,7 @@ export default function Home() {
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
                     <div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                    <a className="project-link" href={project.url} target="_blank" rel="noreferrer">Visiter le site <ExternalLink size={14} /></a>
                   </div>
                 </article>
               ))}
