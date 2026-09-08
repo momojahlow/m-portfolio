@@ -175,13 +175,13 @@ export default function Home() {
     <div className="portfolio-shell">
       <header className="mobile-header">
         <button className="brand-mark" onClick={() => goTo("home")} aria-label="Retour à l'accueil">MD<span>.</span></button>
-        <button className="icon-button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}>
+        <button className="icon-button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={menuOpen} aria-controls="mobile-navigation">
           {menuOpen ? <X size={21} /> : <Menu size={21} />}
         </button>
       </header>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div id="mobile-navigation" className="mobile-menu">
           {navItems.map((item) => (
             <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)}>
               <span>{item.number}</span>{item.label}
