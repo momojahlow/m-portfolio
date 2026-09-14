@@ -251,11 +251,22 @@ a { color: inherit; text-decoration: none; }
 .sidebar-toggle span:last-child { display: none; }
 .rail-nav { position: absolute; z-index: 2; top: 50%; left: 50%; width: 58px; display: flex; align-items: center; gap: 8px; padding: 17px 0; border: 1px solid rgba(221,232,227,.78); border-radius: 32px; background: rgba(3,6,7,.63); box-shadow: 0 12px 34px rgba(0,0,0,.3), inset 0 0 18px rgba(255,255,255,.025); transform: translate(-50%, -50%); }
 .rail-nav button { width: 38px; height: 38px; display: grid; place-items: center; padding: 0; border-radius: 50%; color: #88908f; background: transparent; writing-mode: initial; transform: none; transition: color .2s ease, background .2s ease, transform .2s ease; }
-.rail-nav button:hover { color: #c9d6d1; background: rgba(255,255,255,.07); transform: translateY(-1px); }
-.rail-nav button.active { color: #47e0d2; background: rgba(71,224,210,.08); transform: none; }
+.rail-nav button:hover { color: #c9d6d1; background: rgba(255,255,255,.07); transform: translateY(-1px) scale(1.04); }
+.rail-nav button:active { transform: scale(.86); }
+.rail-nav button.active { color: #47e0d2; background: rgba(71,224,210,.08); box-shadow: 0 0 0 1px rgba(71,224,210,.14), 0 0 18px rgba(71,224,210,.11); transform: none; }
+.rail-nav button.active svg { animation: rail-icon-arrive .34s cubic-bezier(.23,1,.32,1); }
 .rail-nav button.active::before { display: none; }
+.rail-cv { position: absolute; z-index: 2; bottom: 96px; left: 50%; width: 58px; min-height: 34px; display: flex; align-items: center; justify-content: center; gap: 5px; border: 1px solid rgba(71,224,210,.42); border-radius: 18px; background: rgba(3,8,9,.74); color: #47e0d2; font: 8px 'DM Mono', monospace; letter-spacing: .04em; transform: translateX(-50%); transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease; }
+.rail-cv:hover { border-color: #47e0d2; background: rgba(71,224,210,.13); color: #c6fffa; transform: translateX(-50%) translateY(-2px); }
+.rail-cv:active { transform: translateX(-50%) scale(.94); }
 .side-rail > .rail-socials { position: absolute; z-index: 2; bottom: 24px; left: 50%; display: flex; flex-direction: column; gap: 10px; color: rgba(214,224,219,.6); transform: translateX(-50%); }
 .side-rail > .rail-socials a:hover { color: #47e0d2; }
+
+@keyframes rail-icon-arrive {
+  0% { opacity: .35; transform: scale(.72) rotate(-10deg); }
+  70% { opacity: 1; transform: scale(1.14) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
 
 @media (max-width: 1023px) {
   .main-content { margin-left: 0; }

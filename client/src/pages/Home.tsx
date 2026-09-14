@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 
 const storageBase = "/manus-storage";
-const cvUrl = `${storageBase}/MamadouDIALLOkiwicv_1f602f02.docx`;
+const cvUrl = `${storageBase}/MamadouDIALLOkiwicv_aebcb62d.pdf`;
 
 const navItems = [
   { id: "home", label: "Accueil", number: "01" },
@@ -51,7 +51,7 @@ const railNavItems = [
   { id: "home", label: "Accueil", icon: House },
   { id: "about", label: "À propos", icon: UserRound },
   { id: "resume", label: "Parcours", icon: BriefcaseBusiness },
-  { id: "services", label: "Services", icon: Layers },
+  { id: "services", label: "Services", icon: Layers3 },
   { id: "skills", label: "Compétences", icon: Shapes },
   { id: "projects", label: "Projets", icon: Grid2X2 },
 ];
@@ -220,6 +220,10 @@ export default function Home() {
             );
           })}
         </nav>
+        <a className="rail-cv" href={cvUrl} download="Mamadou-Diallo-CV.pdf" aria-label="Télécharger le CV PDF" title="Télécharger le CV PDF">
+          <Download size={14} strokeWidth={1.55} />
+          <span>CV PDF</span>
+        </a>
         <div className="rail-socials">
           <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={14} /></a>
           <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={14} /></a>
