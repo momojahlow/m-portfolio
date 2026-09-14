@@ -14,6 +14,7 @@ import {
   Grid2X2,
   Globe2,
   House,
+  Languages,
   Layers,
   Layers3,
   Linkedin,
@@ -56,6 +57,14 @@ const railNavItems = [
   { id: "projects", label: "Projets", icon: Grid2X2 },
 ];
 
+const englishNavLabels: Record<string, string> = {
+  home: "Home",
+  about: "About",
+  resume: "Resume",
+  services: "Services",
+  skills: "Skills",
+  projects: "Projects",
+};
 const experiences = [
   {
     date: "2020 — aujourd'hui",
@@ -167,6 +176,9 @@ function SectionHeading({ eyebrow, title, detail }: { eyebrow: string; title: st
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [language, setLanguage] = useState<"fr" | "en">("fr");
+  const isEnglish = language === "en";
+  const tr = (fr: string, en: string) => (isEnglish ? en : fr);
 
   useEffect(() => {
     const sections = navItems.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
@@ -180,6 +192,10 @@ export default function Home() {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = isEnglish ? "en" : "fr";
+  }, [isEnglish]);
 
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -199,10 +215,11 @@ export default function Home() {
         <div id="mobile-navigation" className="mobile-menu">
           {navItems.map((item) => (
             <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)}>
-              <span>{item.number}</span>{item.label}
+              <span>{item.number}</span>{isEnglish ? englishNavLabels[item.id] : item.label}
             </button>
           ))}
-          <a href={cvUrl} download className="mobile-cv"><Download size={15} /> Télécharger le CV</a>
+          <button className="mobile-language" onClick={() => setLanguage(isEnglish ? "fr" : "en")}><Languages size={15} /> {isEnglish ? "Passer en français" : "Switch to English"}</button>
+          <a href={cvUrl} download className="mobile-cv"><Download size={15} /> {tr("Télécharger le CV", "Download CV")}</a>
         </div>
       )}
 
@@ -214,7 +231,7 @@ export default function Home() {
           {railNavItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)} aria-label={item.label} title={item.label}>
+              <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)} aria-label={isEnglish ? englishNavLabels[item.id] : item.label} data-tooltip={isEnglish ? englishNavLabels[item.id] : item.label}>
                 <Icon size={18} strokeWidth={1.45} />
               </button>
             );
@@ -224,6 +241,9 @@ export default function Home() {
           <Download size={14} strokeWidth={1.55} />
           <span>CV PDF</span>
         </a>
+        <button className="language-toggle" onClick={() => setLanguage(isEnglish ? "fr" : "en")} aria-label={isEnglish ? "Passer en français" : "Switch to English"} data-tooltip={isEnglish ? "Français" : "English"}>
+          <Languages size={13} /> <span>{isEnglish ? "FR" : "EN"}</span>
+        </button>
         <div className="rail-socials">
           <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={14} /></a>
           <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={14} /></a>
@@ -236,12 +256,12 @@ export default function Home() {
           <div className="hero-visual" aria-hidden="true" />
           <div className="hero-overlay" aria-hidden="true" />
           <div className="hero-content page-width">
-            <div className="hero-kicker"><span className="live-line" /> Full-Stack Developer <span className="kicker-separator">/</span> Casablanca, Maroc</div>
-            <h1>Je transforme<br /><em>les idées</em> en<br /><strong>produits utiles.</strong></h1>
-            <p className="hero-intro">Conception, développement et évolution d'applications web exigeantes avec Laravel, React et une obsession pour les expériences simples.</p>
+            <div className="hero-kicker"><span className="live-line" /> Full-Stack Developer <span className="kicker-separator">/</span> {tr("Casablanca, Maroc", "Casablanca, Morocco")}</div>
+            <h1>{tr("Je transforme", "I turn")}<br /><em>{tr("les idées", "ideas")}</em> {tr("en", "into")}<br /><strong>{tr("produits utiles.", "useful products.")}</strong></h1>
+            <p className="hero-intro">{tr("Conception, développement et évolution d'applications web exigeantes avec Laravel, React et une obsession pour les expériences simples.", "Designing, building and evolving demanding web applications with Laravel, React and an obsession for simple experiences.")}</p>
             <div className="hero-actions">
-              <button className="button-primary" onClick={() => goTo("projects")}>Voir mes réalisations <ArrowDown size={16} /></button>
-              <a className="button-quiet" href={cvUrl} download><Download size={16} /> Télécharger mon CV</a>
+              <button className="button-primary" onClick={() => goTo("projects")}>{tr("Voir mes réalisations", "View my work")} <ArrowDown size={16} /></button>
+              <a className="button-quiet" href={cvUrl} download><Download size={16} /> {tr("Télécharger mon CV", "Download my CV")}</a>
             </div>
           </div>
           <div className="hero-meta page-width">
@@ -252,7 +272,7 @@ export default function Home() {
 
         <section id="about" className="section light-section">
           <div className="page-width about-grid">
-            <SectionHeading eyebrow="À propos" title="Le code comme outil de clarté." detail="Des architectures solides derrière des interfaces qui restent humaines." />
+            <SectionHeading eyebrow={tr("À propos", "About")} title={tr("Le code comme outil de clarté.", "Code as a tool for clarity.")} detail={tr("Des architectures solides derrière des interfaces qui restent humaines.", "Solid architectures behind interfaces that remain human.")} />
             <div className="about-copy">
               <p className="lead-copy">Je suis <strong>Mamadou Diallo</strong>, développeur Full-Stack spécialisé Laravel / ReactJS avec plus de cinq ans d'expérience.</p>
               <p>J'interviens sur des applications métier complexes — CRM, intranet, facturation, gestion des tâches, calendriers, rendez-vous et chat temps réel — avec une approche pragmatique : comprendre le besoin, structurer la solution et livrer un produit durable.</p>
@@ -270,7 +290,7 @@ export default function Home() {
 
         <section id="resume" className="section dark-section resume-section">
           <div className="page-width">
-            <SectionHeading eyebrow="Parcours" title="Des systèmes qui avancent." detail="Une expérience construite sur des produits concrets et des problématiques métier réelles." />
+            <SectionHeading eyebrow={tr("Parcours", "Resume")} title={tr("Des systèmes qui avancent.", "Systems that move forward.")} detail={tr("Une expérience construite sur des produits concrets et des problématiques métier réelles.", "Experience built on real products and real business challenges.")} />
             <div className="timeline">
               {experiences.map((experience, index) => (
                 <article className="timeline-item" key={experience.role}>
@@ -291,7 +311,7 @@ export default function Home() {
 
         <section id="services" className="section cream-section">
           <div className="page-width">
-            <SectionHeading eyebrow="Services" title="Du besoin au produit." detail="Une expertise full-stack pour construire, fiabiliser et faire grandir vos outils digitaux." />
+            <SectionHeading eyebrow={tr("Services", "Services")} title={tr("Du besoin au produit.", "From need to product.")} detail={tr("Une expertise full-stack pour construire, fiabiliser et faire grandir vos outils digitaux.", "Full-stack expertise to build, strengthen and grow your digital tools.")} />
             <div className="services-grid">
               <article className="service-card service-card-main">
                 <div className="service-icon"><Code2 size={23} /></div>
@@ -321,7 +341,7 @@ export default function Home() {
         <section id="skills" className="section light-section skills-section">
           <div className="page-width skills-grid">
             <div>
-              <SectionHeading eyebrow="Compétences" title="Une stack pensée pour livrer." detail="Les outils que j'utilise pour passer de la première idée à une solution fiable." />
+              <SectionHeading eyebrow={tr("Compétences", "Skills")} title={tr("Une stack pensée pour livrer.", "A stack built to ship.")} detail={tr("Les outils que j'utilise pour passer de la première idée à une solution fiable.", "The tools I use to turn a first idea into a reliable solution.")} />
               <div className="skills-marquee"><span>Laravel</span><i>·</i><span>React</span><i>·</i><span>MySQL</span><i>·</i><span>Inertia</span><i>·</i><span>Reverb</span></div>
             </div>
             <div className="skills-list">
@@ -339,7 +359,7 @@ export default function Home() {
         <section id="projects" className="section projects-section">
           <div className="page-width">
             <div className="projects-heading">
-              <SectionHeading eyebrow="Projets sélectionnés" title="Des interfaces au service du réel." detail="Quelques terrains de jeu où le produit, la technique et l'usage se rencontrent." />
+              <SectionHeading eyebrow={tr("Projets sélectionnés", "Selected work")} title={tr("Des interfaces au service du réel.", "Interfaces in service of the real world.")} detail={tr("Quelques terrains de jeu où le produit, la technique et l'usage se rencontrent.", "A few places where product, technology and usage meet.")} />
               <div className="project-count"><strong>06</strong><span>projets<br />présentés</span></div>
             </div>
             <div className="projects-grid">
@@ -363,9 +383,9 @@ export default function Home() {
         <section id="contact" className="contact-section">
           <div className="page-width contact-grid">
             <div>
-              <p className="eyebrow light-eyebrow"><span />Contact</p>
-              <h2>Un projet en tête ?<br /><em>Parlons-en.</em></h2>
-              <p className="contact-lead">Vous avez un produit à construire, un outil à faire évoluer ou une idée à clarifier ? Je serais ravi d'échanger avec vous.</p>
+              <p className="eyebrow light-eyebrow"><span />{tr("Contact", "Contact")}</p>
+              <h2>{tr("Un projet en tête ?", "Have a project in mind?")}<br /><em>{tr("Parlons-en.", "Let's talk.")}</em></h2>
+              <p className="contact-lead">{tr("Vous avez un produit à construire, un outil à faire évoluer ou une idée à clarifier ? Je serais ravi d'échanger avec vous.", "Have a product to build, a tool to evolve or an idea to clarify? I would love to hear from you.")}</p>
             </div>
             <div className="contact-panel">
               <a className="contact-link" href="mailto:md.mamadoudiallo@gmail.com"><span className="contact-icon"><Mail size={19} /></span><span><small>Email</small>md.mamadoudiallo@gmail.com</span><ArrowUpRight size={17} /></a>
