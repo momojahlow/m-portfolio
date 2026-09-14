@@ -242,6 +242,21 @@ a { color: inherit; text-decoration: none; }
 .floating-contact { position: fixed; z-index: 40; right: 24px; bottom: 24px; width: 45px; height: 45px; display: grid; place-items: center; border-radius: 50%; background: #47e0d2; color: #071314; box-shadow: 0 8px 25px rgba(0,0,0,.16); transition: transform .2s ease, box-shadow .2s ease; }
 .floating-contact:hover { transform: translateY(-4px) rotate(-8deg); box-shadow: 0 13px 30px rgba(71,224,210,.28); }
 
+/* Floating sidebar inspired by the supplied mobile reference */
+.side-rail { width: 112px; align-items: center; padding: 0; overflow: hidden; background-color: #050708; background-image: radial-gradient(circle at 14% 12%, rgba(102,119,124,.16) 0 1px, transparent 2px), radial-gradient(circle at 82% 72%, rgba(102,119,124,.12) 0 1px, transparent 2px), linear-gradient(118deg, transparent 0 24%, rgba(167,188,187,.11) 24.2%, transparent 24.8% 42%, rgba(167,188,187,.09) 42.2%, transparent 42.7% 74%, rgba(167,188,187,.1) 74.2%, transparent 74.8%), linear-gradient(65deg, transparent 0 30%, rgba(167,188,187,.08) 30.2%, transparent 30.8% 59%, rgba(167,188,187,.08) 59.2%, transparent 59.8%), linear-gradient(180deg, #060809, #020405); background-size: 112px 176px, 143px 212px, 112px 310px, 112px 260px, auto; }
+.side-rail::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,.42), transparent 50%, rgba(0,0,0,.3)); }
+.sidebar-toggle { position: absolute; z-index: 2; top: 34px; left: 50%; width: 56px; height: 56px; display: grid; place-content: center; gap: 7px; border: 1px solid rgba(235,242,239,.8); border-radius: 50%; background: rgba(4,7,8,.45); cursor: pointer; transform: translateX(-50%); transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+.sidebar-toggle:hover { border-color: #47e0d2; background: rgba(71,224,210,.1); transform: translateX(-50%) scale(1.04); }
+.sidebar-toggle span { display: block; width: 21px; height: 2px; background: #eef4f0; }
+.sidebar-toggle span:last-child { display: none; }
+.rail-nav { position: absolute; z-index: 2; top: 50%; left: 50%; width: 58px; display: flex; align-items: center; gap: 8px; padding: 17px 0; border: 1px solid rgba(221,232,227,.78); border-radius: 32px; background: rgba(3,6,7,.63); box-shadow: 0 12px 34px rgba(0,0,0,.3), inset 0 0 18px rgba(255,255,255,.025); transform: translate(-50%, -50%); }
+.rail-nav button { width: 38px; height: 38px; display: grid; place-items: center; padding: 0; border-radius: 50%; color: #88908f; background: transparent; writing-mode: initial; transform: none; transition: color .2s ease, background .2s ease, transform .2s ease; }
+.rail-nav button:hover { color: #c9d6d1; background: rgba(255,255,255,.07); transform: translateY(-1px); }
+.rail-nav button.active { color: #47e0d2; background: rgba(71,224,210,.08); transform: none; }
+.rail-nav button.active::before { display: none; }
+.side-rail > .rail-socials { position: absolute; z-index: 2; bottom: 24px; left: 50%; display: flex; flex-direction: column; gap: 10px; color: rgba(214,224,219,.6); transform: translateX(-50%); }
+.side-rail > .rail-socials a:hover { color: #47e0d2; }
+
 @media (max-width: 1023px) {
   .main-content { margin-left: 0; }
   .side-rail { display: none; }

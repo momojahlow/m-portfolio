@@ -11,7 +11,10 @@ import {
   Download,
   ExternalLink,
   Github,
+  Grid2X2,
   Globe2,
+  House,
+  Layers,
   Layers3,
   Linkedin,
   Mail,
@@ -21,11 +24,14 @@ import {
   MonitorCog,
   MousePointer2,
   Phone,
+  PanelsTopLeft,
   Quote,
   Send,
   Server,
+  Shapes,
   Sparkles,
   TerminalSquare,
+  UserRound,
   X,
 } from "lucide-react";
 
@@ -39,6 +45,15 @@ const navItems = [
   { id: "services", label: "Services", number: "04" },
   { id: "skills", label: "Compétences", number: "05" },
   { id: "projects", label: "Projets", number: "06" },
+];
+
+const railNavItems = [
+  { id: "home", label: "Accueil", icon: House },
+  { id: "about", label: "À propos", icon: UserRound },
+  { id: "resume", label: "Parcours", icon: BriefcaseBusiness },
+  { id: "services", label: "Services", icon: Layers },
+  { id: "skills", label: "Compétences", icon: Shapes },
+  { id: "projects", label: "Projets", icon: Grid2X2 },
 ];
 
 const experiences = [
@@ -192,28 +207,23 @@ export default function Home() {
       )}
 
       <aside className="side-rail">
-        <div className="side-topline"><span className="status-dot" /> Disponible pour de nouvelles missions</div>
-        <button className="rail-brand" onClick={() => goTo("home")} aria-label="Accueil">
-          <span>MD</span><small>Portfolio / 2024—26</small>
+        <button className="sidebar-toggle" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={menuOpen}>
+          <span /><span />
         </button>
         <nav className="rail-nav" aria-label="Navigation principale">
-          {navItems.map((item) => (
-            <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)}>
-              <span className="nav-number">{item.number}</span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          {railNavItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button key={item.id} className={activeSection === item.id ? "active" : ""} onClick={() => goTo(item.id)} aria-label={item.label} title={item.label}>
+                <Icon size={18} strokeWidth={1.45} />
+              </button>
+            );
+          })}
         </nav>
-        <div className="rail-bottom">
-          <a className="rail-contact" href="mailto:md.mamadoudiallo@gmail.com"><Mail size={16} /> Me contacter <ArrowUpRight size={14} /></a>
-          <div className="rail-socials">
-            <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={16} /></a>
-            <a href="tel:+2120635178483" aria-label="Téléphone"><Phone size={16} /></a>
-            <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /></a>
-            <a href="https://www.linkedin.com/in/mamadou-diallo-06343b55/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
-            <a href="https://x.com/MomzDIALLO" target="_blank" rel="noreferrer" aria-label="X"><AtSign size={16} /></a>
-          </div>
-          <p>© 2026 Mamadou Diallo</p>
+        <div className="rail-socials">
+          <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={14} /></a>
+          <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={14} /></a>
+          <a href="https://www.linkedin.com/in/mamadou-diallo-06343b55/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={14} /></a>
         </div>
       </aside>
 
