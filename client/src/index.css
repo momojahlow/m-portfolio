@@ -197,6 +197,10 @@ a { color: inherit; text-decoration: none; }
 .tone-orange .project-art { background: radial-gradient(circle at 67% 44%, rgba(242,169,99,.18), transparent 30%), #28231f; }
 .tone-blue .project-art { background: radial-gradient(circle at 67% 44%, rgba(85,163,255,.2), transparent 30%), #1e2633; }
 .project-art::before { content: ''; position: absolute; inset: 0; opacity: .28; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 30px 30px; mask-image: radial-gradient(circle at 68% 50%, black, transparent 68%); }
+.project-art.has-project-image { background: #e9edf0; }
+.project-art.has-project-image::before { z-index: 1; opacity: .18; background: linear-gradient(180deg, rgba(4,12,18,.08), rgba(4,12,18,.36)); mask-image: none; }
+.project-art.has-project-image img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; transition: transform .5s cubic-bezier(.23,1,.32,1), filter .35s ease; }
+.project-card:hover .project-art.has-project-image img { transform: scale(1.045); filter: saturate(1.06) contrast(1.02); }
 .art-orbit { position: absolute; top: 50%; left: 67%; width: 214px; height: 75px; border: 1px solid rgba(71,224,210,.58); border-radius: 50%; transform: translate(-50%, -50%) rotate(-28deg); }
 .art-orbit-two { width: 260px; height: 104px; border-color: rgba(71,224,210,.25); transform: translate(-50%, -50%) rotate(27deg); }
 .tone-violet .art-orbit { border-color: rgba(161,149,255,.75); }

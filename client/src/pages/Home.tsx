@@ -149,6 +149,7 @@ const projects = [
     tags: ["React", "Inertia", "Facturation"],
     tone: "violet",
     url: "https://psyphone.ma/",
+    image: "/manus-storage/psyphone_a5814a6c.png",
     en: { type: "Healthcare · Activity management", description: "From prospect to consultation, a complete suite to manage the daily work of psychologists." },
   },
   {
@@ -169,6 +170,7 @@ const projects = [
     tags: ["Laravel", "MySQL", "API"],
     tone: "blue",
     url: "https://digiassur.ma/",
+    image: "/manus-storage/digiassur_bf3e6103.png",
     en: { type: "Insurance · Automation", description: "A multi-product insurance CRM streamlining quotes, subscriptions, renewals and claims." },
   },
   {
@@ -399,7 +401,9 @@ export default function Home() {
             <div className="projects-grid">
               {projects.map((project) => (
                 <article className={`project-card tone-${project.tone}`} key={project.number}>
-                  <div className="project-art"><div className="art-orbit art-orbit-one" /><div className="art-orbit art-orbit-two" /><div className="art-core"><span>{project.number}</span></div><div className="art-crosshair"><span /><span /></div></div>
+                  <div className={`project-art ${project.image ? "has-project-image" : ""}`}>
+                    {project.image ? <img src={project.image} alt={`${project.title} — capture du site`} /> : <><div className="art-orbit art-orbit-one" /><div className="art-orbit art-orbit-two" /><div className="art-core"><span>{project.number}</span></div><div className="art-crosshair"><span /><span /></div></>}
+                  </div>
                   <div className="project-card-body">
                     <div className="project-card-top"><span>{project.number} / 04</span><ArrowUpRight size={17} /></div>
                     <p className="project-type">{isEnglish ? project.en.type : project.type}</p>
