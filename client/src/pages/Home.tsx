@@ -73,6 +73,12 @@ const experiences = [
     description:
       "Refonte complète de l'intranet et développement de briques métier robustes : chat temps réel, tickets IT, tâches, rôles et permissions. Mise en production, optimisation et maintenance d'une plateforme utilisée au quotidien.",
     stack: ["Laravel", "Livewire", "Echo / Reverb", "MySQL"],
+    en: {
+      date: "2020 — present",
+      role: "Full-Stack Developer",
+      company: "GEOSO · Casablanca, Morocco",
+      description: "Complete intranet redesign and development of robust business features: real-time chat, IT tickets, tasks, roles and permissions. Production deployment, optimization and maintenance of a platform used every day.",
+    },
   },
   {
     date: "Projet clé",
@@ -81,6 +87,12 @@ const experiences = [
     description:
       "Pipeline de prospects, fiches patients, consultations, agenda synchronisé, facturation PDF et APIs automatisées. Une expérience multi-profils, claire et orientée performance.",
     stack: ["ReactJS", "InertiaJS", "REST API", "Docker"],
+    en: {
+      date: "Key project",
+      role: "Psyphone · Showcase site + CRM",
+      company: "A workspace designed for psychologists and sales teams",
+      description: "Prospect pipeline, patient records, consultations, synchronized calendar, PDF invoicing and automated APIs. A clear, performance-focused multi-profile experience.",
+    },
   },
   {
     date: "Projet clé",
@@ -89,6 +101,12 @@ const experiences = [
     description:
       "Site éditorial et back-office pour gérer lois, publications et consultations. CRM commercial de bout en bout, blog optimisé pour le SEO et intégration des APIs de facturation.",
     stack: ["Laravel", "ReactJS", "TailwindCSS", "MySQL"],
+    en: {
+      date: "Key project",
+      role: "Houkouki · Legal CRM",
+      company: "Digitalizing legal operations",
+      description: "Editorial website and back office for managing laws, publications and consultations. End-to-end sales CRM, SEO-optimized blog and billing API integration.",
+    },
   },
   {
     date: "Projet clé",
@@ -97,6 +115,12 @@ const experiences = [
     description:
       "Gestion clients, prospects, devis, souscriptions, renouvellements, sinistres, agenda et notifications. Architecture multi-profils et automatisation de la facturation.",
     stack: ["Laravel 11/12", "InertiaJS", "REST API", "Docker"],
+    en: {
+      date: "Key project",
+      role: "DigiAssur · Insurance CRM",
+      company: "A complete tool for insurance professionals",
+      description: "Management of customers, prospects, quotes, subscriptions, renewals, claims, calendars and notifications. Multi-profile architecture and automated billing.",
+    },
   },
 ];
 
@@ -115,6 +139,7 @@ const projects = [
     tags: ["Laravel", "Livewire", "Reverb"],
     tone: "cyan",
     url: "https://geoso.fr/",
+    en: { type: "Productivity · Real-time", description: "An internal workspace with chat, IT tickets, tasks, roles and real-time notifications." },
   },
   {
     number: "02",
@@ -124,6 +149,7 @@ const projects = [
     tags: ["React", "Inertia", "Facturation"],
     tone: "violet",
     url: "https://psyphone.ma/",
+    en: { type: "Healthcare · Activity management", description: "From prospect to consultation, a complete suite to manage the daily work of psychologists." },
   },
   {
     number: "03",
@@ -133,6 +159,7 @@ const projects = [
     tags: ["React", "Laravel", "SEO"],
     tone: "orange",
     url: "https://houkouki.com/",
+    en: { type: "Legal · Editorial", description: "A modern legal portal combining document management, SEO content and sales CRM." },
   },
   {
     number: "04",
@@ -142,6 +169,7 @@ const projects = [
     tags: ["Laravel", "MySQL", "API"],
     tone: "blue",
     url: "https://digiassur.ma/",
+    en: { type: "Insurance · Automation", description: "A multi-product insurance CRM streamlining quotes, subscriptions, renewals and claims." },
   },
   {
     number: "05",
@@ -151,6 +179,7 @@ const projects = [
     tags: ["Web", "Assurance", "UX"],
     tone: "cyan",
     url: "https://assurwi.ma/",
+    en: { type: "Insurance · Customer experience", description: "A digital presence dedicated to insurance needs, guiding visitors toward the right solution." },
   },
   {
     number: "06",
@@ -160,6 +189,7 @@ const projects = [
     tags: ["Web", "Design", "Delivery"],
     tone: "violet",
     url: "https://loona.ma/",
+    en: { type: "Digital product · Web", description: "A complementary web universe within a carefully designed and delivered digital product ecosystem." },
   },
 ];
 
@@ -176,7 +206,10 @@ function SectionHeading({ eyebrow, title, detail }: { eyebrow: string; title: st
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [language, setLanguage] = useState<"fr" | "en">("fr");
+  const [language, setLanguage] = useState<"fr" | "en">(() => {
+    if (typeof window === "undefined") return "fr";
+    return window.localStorage.getItem("mamadou-portfolio-language") === "en" ? "en" : "fr";
+  });
   const isEnglish = language === "en";
   const tr = (fr: string, en: string) => (isEnglish ? en : fr);
 
@@ -195,7 +228,8 @@ export default function Home() {
 
   useEffect(() => {
     document.documentElement.lang = isEnglish ? "en" : "fr";
-  }, [isEnglish]);
+    window.localStorage.setItem("mamadou-portfolio-language", language);
+  }, [isEnglish, language]);
 
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -251,7 +285,7 @@ export default function Home() {
         </div>
       </aside>
 
-      <main className="main-content">
+      <main key={language} className={`main-content language-transition ${language}`}>
         <section id="home" className="hero-section">
           <div className="hero-visual" aria-hidden="true" />
           <div className="hero-overlay" aria-hidden="true" />
@@ -295,11 +329,11 @@ export default function Home() {
               {experiences.map((experience, index) => (
                 <article className="timeline-item" key={experience.role}>
                   <div className="timeline-index">0{index + 1}</div>
-                  <div className="timeline-date">{experience.date}</div>
+                  <div className="timeline-date">{isEnglish ? experience.en.date : experience.date}</div>
                   <div className="timeline-body">
-                    <h3>{experience.role}</h3>
-                    <p className="timeline-company">{experience.company}</p>
-                    <p>{experience.description}</p>
+                    <h3>{isEnglish ? experience.en.role : experience.role}</h3>
+                    <p className="timeline-company">{isEnglish ? experience.en.company : experience.company}</p>
+                    <p>{isEnglish ? experience.en.description : experience.description}</p>
                     <div className="tag-list">{experience.stack.map((tag) => <span key={tag}>{tag}</span>)}</div>
                   </div>
                   <ArrowUpRight className="timeline-arrow" size={20} />
@@ -368,9 +402,9 @@ export default function Home() {
                   <div className="project-art"><div className="art-orbit art-orbit-one" /><div className="art-orbit art-orbit-two" /><div className="art-core"><span>{project.number}</span></div><div className="art-crosshair"><span /><span /></div></div>
                   <div className="project-card-body">
                     <div className="project-card-top"><span>{project.number} / 04</span><ArrowUpRight size={17} /></div>
-                    <p className="project-type">{project.type}</p>
+                    <p className="project-type">{isEnglish ? project.en.type : project.type}</p>
                     <h3>{project.title}</h3>
-                    <p>{project.description}</p>
+                    <p>{isEnglish ? project.en.description : project.description}</p>
                     <div className="tag-list">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                     <a className="project-link" href={project.url} target="_blank" rel="noreferrer">Visiter le site <ExternalLink size={14} /></a>
                   </div>
