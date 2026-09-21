@@ -1,4 +1,11 @@
 import { useEffect, useState } from "react";
+import heroOrbit from "@/assets/portfolio/mamadou-hero-orbit.png";
+import cvFile from "@/assets/portfolio/MamadouDIALLOkiwicv.pdf";
+import geosoCapture from "@/assets/portfolio/geoso.png";
+import psyphoneCapture from "@/assets/portfolio/psyphone.png";
+import houkoukiCapture from "@/assets/portfolio/houkouki.png";
+import digiassurCapture from "@/assets/portfolio/digiassur.png";
+import loonaCapture from "@/assets/portfolio/loona.png";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -36,8 +43,7 @@ import {
   X,
 } from "lucide-react";
 
-const storageBase = "/manus-storage";
-const cvUrl = `${storageBase}/MamadouDIALLOkiwicv_aebcb62d.pdf`;
+const cvUrl = cvFile;
 
 const navItems = [
   { id: "home", label: "Accueil", number: "01" },
@@ -139,7 +145,7 @@ const projects = [
     tags: ["Laravel", "Livewire", "Reverb"],
     tone: "cyan",
     url: "https://geoso.fr/",
-    image: "/manus-storage/geoso_2c2cb28f.png",
+    image: geosoCapture,
     en: { type: "Productivity · Real-time", description: "An internal workspace with chat, IT tickets, tasks, roles and real-time notifications." },
   },
   {
@@ -150,7 +156,7 @@ const projects = [
     tags: ["React", "Inertia", "Facturation"],
     tone: "violet",
     url: "https://psyphone.ma/",
-    image: "/manus-storage/psyphone_db9d2b6f.png",
+    image: psyphoneCapture,
     en: { type: "Healthcare · Activity management", description: "From prospect to consultation, a complete suite to manage the daily work of psychologists." },
   },
   {
@@ -161,7 +167,7 @@ const projects = [
     tags: ["React", "Laravel", "SEO"],
     tone: "orange",
     url: "https://houkouki.com/",
-    image: "/manus-storage/houkouki_2309fd11.png",
+    image: houkoukiCapture,
     en: { type: "Legal · Editorial", description: "A modern legal portal combining document management, SEO content and sales CRM." },
   },
   {
@@ -172,7 +178,7 @@ const projects = [
     tags: ["Laravel", "MySQL", "API"],
     tone: "blue",
     url: "https://digiassur.ma/",
-    image: "/manus-storage/digiassur_e524abee.png",
+    image: digiassurCapture,
     en: { type: "Insurance · Automation", description: "A multi-product insurance CRM streamlining quotes, subscriptions, renewals and claims." },
   },
   {
@@ -183,7 +189,7 @@ const projects = [
     tags: ["Web", "Design", "Delivery"],
     tone: "violet",
     url: "https://loona.ma/",
-    image: "/manus-storage/loona_7bc21829.png",
+    image: loonaCapture,
     en: { type: "Digital product · Web", description: "A complementary web universe within a carefully designed and delivered digital product ecosystem." },
   },
 ];
@@ -282,7 +288,7 @@ export default function Home() {
 
       <main key={language} className={`main-content language-transition ${language}`}>
         <section id="home" className="hero-section">
-          <div className="hero-visual" aria-hidden="true" />
+          <div className="hero-visual" aria-hidden="true"><img src={heroOrbit} alt="" /></div>
           <div className="hero-overlay" aria-hidden="true" />
           <div className="hero-content page-width">
             <div className="hero-kicker"><span className="live-line" /> Full-Stack Developer <span className="kicker-separator">/</span> {tr("Casablanca, Maroc", "Casablanca, Morocco")}</div>
