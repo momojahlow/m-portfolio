@@ -139,6 +139,7 @@ const projects = [
     tags: ["Laravel", "Livewire", "Reverb"],
     tone: "cyan",
     url: "https://geoso.fr/",
+    image: "/manus-storage/geoso_2c2cb28f.png",
     en: { type: "Productivity · Real-time", description: "An internal workspace with chat, IT tickets, tasks, roles and real-time notifications." },
   },
   {
@@ -160,6 +161,7 @@ const projects = [
     tags: ["React", "Laravel", "SEO"],
     tone: "orange",
     url: "https://houkouki.com/",
+    image: "/manus-storage/houkouki_2309fd11.png",
     en: { type: "Legal · Editorial", description: "A modern legal portal combining document management, SEO content and sales CRM." },
   },
   {
@@ -170,27 +172,18 @@ const projects = [
     tags: ["Laravel", "MySQL", "API"],
     tone: "blue",
     url: "https://digiassur.ma/",
-    image: "/manus-storage/digiassur_bf3e6103.png",
+    image: "/manus-storage/digiassur_e524abee.png",
     en: { type: "Insurance · Automation", description: "A multi-product insurance CRM streamlining quotes, subscriptions, renewals and claims." },
   },
   {
     number: "05",
-    title: "Assurwi",
-    type: "Assurance · Expérience client",
-    description: "Une présence digitale dédiée aux besoins d'assurance, pensée pour guider les visiteurs vers la bonne solution.",
-    tags: ["Web", "Assurance", "UX"],
-    tone: "cyan",
-    url: "https://assurwi.ma/",
-    en: { type: "Insurance · Customer experience", description: "A digital presence dedicated to insurance needs, guiding visitors toward the right solution." },
-  },
-  {
-    number: "06",
     title: "Loona",
     type: "Produit digital · Web",
     description: "Un univers web complémentaire dans l'écosystème des produits digitaux conçus et accompagnés avec soin.",
     tags: ["Web", "Design", "Delivery"],
     tone: "violet",
     url: "https://loona.ma/",
+    image: "/manus-storage/loona_7bc21829.png",
     en: { type: "Digital product · Web", description: "A complementary web universe within a carefully designed and delivered digital product ecosystem." },
   },
 ];
@@ -396,7 +389,7 @@ export default function Home() {
           <div className="page-width">
             <div className="projects-heading">
               <SectionHeading eyebrow={tr("Projets sélectionnés", "Selected work")} title={tr("Des interfaces au service du réel.", "Interfaces in service of the real world.")} detail={tr("Quelques terrains de jeu où le produit, la technique et l'usage se rencontrent.", "A few places where product, technology and usage meet.")} />
-              <div className="project-count"><strong>06</strong><span>projets<br />présentés</span></div>
+              <div className="project-count"><strong>05</strong><span>projets<br />présentés</span></div>
             </div>
             <div className="projects-grid">
               {projects.map((project) => (
@@ -405,7 +398,7 @@ export default function Home() {
                     {project.image ? <img src={project.image} alt={`${project.title} — capture du site`} /> : <><div className="art-orbit art-orbit-one" /><div className="art-orbit art-orbit-two" /><div className="art-core"><span>{project.number}</span></div><div className="art-crosshair"><span /><span /></div></>}
                   </div>
                   <div className="project-card-body">
-                    <div className="project-card-top"><span>{project.number} / 04</span><ArrowUpRight size={17} /></div>
+                    <div className="project-card-top"><span>{project.number} / 05</span><ArrowUpRight size={17} /></div>
                     <p className="project-type">{isEnglish ? project.en.type : project.type}</p>
                     <h3>{project.title}</h3>
                     <p>{isEnglish ? project.en.description : project.description}</p>
