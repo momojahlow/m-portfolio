@@ -150,7 +150,7 @@ const projects = [
     tags: ["React", "Inertia", "Facturation"],
     tone: "violet",
     url: "https://psyphone.ma/",
-    image: "/manus-storage/psyphone_a5814a6c.png",
+    image: "/manus-storage/psyphone_db9d2b6f.png",
     en: { type: "Healthcare · Activity management", description: "From prospect to consultation, a complete suite to manage the daily work of psychologists." },
   },
   {
