@@ -231,6 +231,20 @@ export default function Home() {
     document.documentElement.lang = isEnglish ? "en" : "fr";
     window.localStorage.setItem("mamadou-portfolio-language", language);
   }, [isEnglish, language]);
+  useEffect(() => {
+    const revealItems = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const revealObserver = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          revealObserver.unobserve(entry.target);
+        }
+      }),
+      { rootMargin: "0px 0px -12% 0px", threshold: 0.08 },
+    );
+    revealItems.forEach((item) => revealObserver.observe(item));
+    return () => revealObserver.disconnect();
+  }, [language]);
 
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -296,7 +310,7 @@ export default function Home() {
             <p className="hero-intro">{tr("Conception, développement et évolution d'applications web exigeantes avec Laravel, React et une obsession pour les expériences simples.", "Designing, building and evolving demanding web applications with Laravel, React and an obsession for simple experiences.")}</p>
             <div className="hero-actions">
               <button className="button-primary" onClick={() => goTo("projects")}>{tr("Voir mes réalisations", "View my work")} <ArrowDown size={16} /></button>
-              <a className="button-quiet" href={cvUrl} download><Download size={16} /> {tr("Télécharger mon CV", "Download my CV")}</a>
+              <a className="button-cv" href={cvUrl} download="Mamadou-Diallo-CV.pdf" aria-label={tr("Télécharger le CV de Mamadou Diallo", "Download Mamadou Diallo's CV")}><Download size={17} /> <span>{tr("Télécharger mon CV", "Download my CV")}</span></a>
             </div>
           </div>
           <div className="hero-meta page-width">
@@ -305,7 +319,7 @@ export default function Home() {
           <div className="hero-signature">MD<span>.</span></div>
         </section>
 
-        <section id="about" className="section light-section">
+        <section id="about" className="section light-section" data-reveal>
           <div className="page-width about-grid">
             <SectionHeading eyebrow={tr("À propos", "About")} title={tr("Le code comme outil de clarté.", "Code as a tool for clarity.")} detail={tr("Des architectures solides derrière des interfaces qui restent humaines.", "Solid architectures behind interfaces that remain human.")} />
             <div className="about-copy">
@@ -323,12 +337,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="resume" className="section dark-section resume-section">
+        <section id="resume" className="section dark-section resume-section" data-reveal>
           <div className="page-width">
             <SectionHeading eyebrow={tr("Parcours", "Resume")} title={tr("Des systèmes qui avancent.", "Systems that move forward.")} detail={tr("Une expérience construite sur des produits concrets et des problématiques métier réelles.", "Experience built on real products and real business challenges.")} />
             <div className="timeline">
               {experiences.map((experience, index) => (
-                <article className="timeline-item" key={experience.role}>
+                <article className="timeline-item" data-reveal key={experience.role}>
                   <div className="timeline-index">0{index + 1}</div>
                   <div className="timeline-date">{isEnglish ? experience.en.date : experience.date}</div>
                   <div className="timeline-body">
@@ -344,7 +358,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="services" className="section cream-section">
+        <section id="services" className="section cream-section" data-reveal>
           <div className="page-width">
             <SectionHeading eyebrow={tr("Services", "Services")} title={tr("Du besoin au produit.", "From need to product.")} detail={tr("Une expertise full-stack pour construire, fiabiliser et faire grandir vos outils digitaux.", "Full-stack expertise to build, strengthen and grow your digital tools.")} />
             <div className="services-grid">
@@ -373,7 +387,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="skills" className="section light-section skills-section">
+        <section id="skills" className="section light-section skills-section" data-reveal>
           <div className="page-width skills-grid">
             <div>
               <SectionHeading eyebrow={tr("Compétences", "Skills")} title={tr("Une stack pensée pour livrer.", "A stack built to ship.")} detail={tr("Les outils que j'utilise pour passer de la première idée à une solution fiable.", "The tools I use to turn a first idea into a reliable solution.")} />
@@ -391,7 +405,7 @@ export default function Home() {
           <div className="page-width toolkit-strip"><span><TerminalSquare size={17} /> Environnement</span><span>Windows / Linux</span><span>Agile / Scrum</span><span>Git · Docker · Postman</span><span>Français courant · Anglais moyen</span></div>
         </section>
 
-        <section id="projects" className="section projects-section">
+        <section id="projects" className="section projects-section" data-reveal>
           <div className="page-width">
             <div className="projects-heading">
               <SectionHeading eyebrow={tr("Projets sélectionnés", "Selected work")} title={tr("Des interfaces au service du réel.", "Interfaces in service of the real world.")} detail={tr("Quelques terrains de jeu où le produit, la technique et l'usage se rencontrent.", "A few places where product, technology and usage meet.")} />
@@ -399,7 +413,7 @@ export default function Home() {
             </div>
             <div className="projects-grid">
               {projects.map((project) => (
-                <article className={`project-card tone-${project.tone}`} key={project.number}>
+                <article className={`project-card tone-${project.tone}`} data-reveal key={project.number}>
                   <div className={`project-art ${project.image ? "has-project-image" : ""}`}>
                     {project.image ? <img src={project.image} alt={`${project.title} — capture du site`} /> : <><div className="art-orbit art-orbit-one" /><div className="art-orbit art-orbit-two" /><div className="art-core"><span>{project.number}</span></div><div className="art-crosshair"><span /><span /></div></>}
                   </div>
@@ -417,7 +431,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="contact-section">
+        <section id="contact" className="contact-section" data-reveal>
           <div className="page-width contact-grid">
             <div>
               <p className="eyebrow light-eyebrow"><span />{tr("Contact", "Contact")}</p>
