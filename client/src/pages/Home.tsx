@@ -44,6 +44,7 @@ import {
 } from "lucide-react";
 
 const cvUrl = cvFile;
+const emailComposeUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=md.mamadoudiallo@gmail.com";
 
 const navItems = [
   { id: "home", label: "Accueil", number: "01" },
@@ -260,7 +261,7 @@ export default function Home() {
 
       <aside className="side-rail">
         <button className="sidebar-toggle" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={menuOpen}>
-          <span /><span />
+          <span className="sidebar-initials">MD</span>
         </button>
         <nav className="rail-nav" aria-label="Navigation principale">
           {railNavItems.map((item) => {
@@ -280,7 +281,7 @@ export default function Home() {
           <Languages size={13} /> <span>{isEnglish ? "FR" : "EN"}</span>
         </button>
         <div className="rail-socials">
-          <a href="mailto:md.mamadoudiallo@gmail.com" aria-label="Email"><Mail size={14} /></a>
+          <a href={emailComposeUrl} target="_blank" rel="noreferrer" aria-label="Envoyer un email à Mamadou Diallo" title="Envoyer un email"><Mail size={14} /></a>
           <a href="https://github.com/momojahlow" target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={14} /></a>
           <a href="https://www.linkedin.com/in/mamadou-diallo-06343b55/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={14} /></a>
         </div>
