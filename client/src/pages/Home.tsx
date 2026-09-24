@@ -28,7 +28,6 @@ import {
   Mail,
   MapPin,
   Menu,
-  MessageCircle,
   MonitorCog,
   MousePointer2,
   Phone,
@@ -436,7 +435,6 @@ export default function Home() {
         </section>
       </main>
 
-      <a className="floating-contact" href="mailto:md.mamadoudiallo@gmail.com" aria-label="Contacter Mamadou Diallo"><MessageCircle size={18} /></a>
     </div>
   );
 }

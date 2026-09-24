@@ -244,11 +244,9 @@ a { color: inherit; text-decoration: none; }
 .contact-cta:hover { background: #7af5eb; transform: translateY(-2px); }
 .footer-line { position: relative; z-index: 1; display: flex; justify-content: space-between; margin-top: 110px; padding-top: 18px; border-top: 1px solid #263338; color: #67777b; font: 9px 'DM Mono', monospace; text-transform: uppercase; }
 .footer-line > span:first-child { color: #eef5f1; font: 800 16px 'Manrope', sans-serif; letter-spacing: -.14em; text-transform: none; }
-.floating-contact { position: fixed; z-index: 40; right: 24px; bottom: 24px; width: 45px; height: 45px; display: grid; place-items: center; border-radius: 50%; background: #47e0d2; color: #071314; box-shadow: 0 8px 25px rgba(0,0,0,.16); transition: transform .2s ease, box-shadow .2s ease; }
-.floating-contact:hover { transform: translateY(-4px) rotate(-8deg); box-shadow: 0 13px 30px rgba(71,224,210,.28); }
 
 /* Floating sidebar inspired by the supplied mobile reference */
-.side-rail { width: 112px; align-items: center; padding: 0; overflow: hidden; background-color: #050708; background-image: radial-gradient(circle at 14% 12%, rgba(102,119,124,.16) 0 1px, transparent 2px), radial-gradient(circle at 82% 72%, rgba(102,119,124,.12) 0 1px, transparent 2px), linear-gradient(118deg, transparent 0 24%, rgba(167,188,187,.11) 24.2%, transparent 24.8% 42%, rgba(167,188,187,.09) 42.2%, transparent 42.7% 74%, rgba(167,188,187,.1) 74.2%, transparent 74.8%), linear-gradient(65deg, transparent 0 30%, rgba(167,188,187,.08) 30.2%, transparent 30.8% 59%, rgba(167,188,187,.08) 59.2%, transparent 59.8%), linear-gradient(180deg, #060809, #020405); background-size: 112px 176px, 143px 212px, 112px 310px, 112px 260px, auto; }
+.side-rail { width: 112px; align-items: center; padding: 0; overflow: visible; background-color: #050708; background-image: radial-gradient(circle at 14% 12%, rgba(102,119,124,.16) 0 1px, transparent 2px), radial-gradient(circle at 82% 72%, rgba(102,119,124,.12) 0 1px, transparent 2px), linear-gradient(118deg, transparent 0 24%, rgba(167,188,187,.11) 24.2%, transparent 24.8% 42%, rgba(167,188,187,.09) 42.2%, transparent 42.7% 74%, rgba(167,188,187,.1) 74.2%, transparent 74.8%), linear-gradient(65deg, transparent 0 30%, rgba(167,188,187,.08) 30.2%, transparent 30.8% 59%, rgba(167,188,187,.08) 59.2%, transparent 59.8%), linear-gradient(180deg, #060809, #020405); background-size: 112px 176px, 143px 212px, 112px 310px, 112px 260px, auto; }
 .side-rail::after { content: ''; position: absolute; z-index: 0; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(0,0,0,.42), transparent 50%, rgba(0,0,0,.3)); }
 .sidebar-toggle { position: absolute; z-index: 2; top: 34px; left: 50%; width: 56px; height: 56px; display: grid; place-content: center; gap: 7px; border: 1px solid rgba(235,242,239,.8); border-radius: 50%; background: rgba(4,7,8,.45); cursor: pointer; transform: translateX(-50%); transition: border-color .2s ease, background .2s ease, transform .2s ease; }
 .sidebar-toggle:hover { border-color: #47e0d2; background: rgba(71,224,210,.1); transform: translateX(-50%) scale(1.04); }
@@ -351,7 +349,6 @@ a { color: inherit; text-decoration: none; }
   .contact-section h2 { font-size: 3.4rem; }
   .contact-lead { font-size: 12px; }
   .footer-line { align-items: flex-start; flex-direction: column; gap: 9px; margin-top: 70px; font-size: 8px; }
-  .floating-contact { right: 19px; bottom: 19px; width: 43px; height: 43px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
