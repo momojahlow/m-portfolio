@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import heroOrbit from "@/assets/portfolio/mamadou-hero-orbit.png";
+import heroOrbit from "@/assets/portfolio/mamadou-hero-orbit.webp";
 import cvFile from "@/assets/portfolio/MamadouDIALLOkiwicv.pdf";
 import geosoCapture from "@/assets/portfolio/geoso.png";
 import psyphoneCapture from "@/assets/portfolio/psyphone.png";
