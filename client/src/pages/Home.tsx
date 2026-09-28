@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
 import heroOrbit from "@/assets/portfolio/mamadou-hero-orbit.webp";
 import cvFile from "@/assets/portfolio/MamadouDIALLOkiwicv.pdf";
 import geosoCapture from "@/assets/portfolio/geoso.png";
@@ -8,6 +8,7 @@ import digiassurCapture from "@/assets/portfolio/digiassur.png";
 import loonaCapture from "@/assets/portfolio/loona.png";
 import {
   ArrowDown,
+  ArrowUp,
   ArrowUpRight,
   AtSign,
   BriefcaseBusiness,
@@ -137,6 +138,11 @@ const skillGroups = [
   { label: "Frontend", skills: ["ReactJS", "Vue.js", "InertiaJS", "Alpine.js", "TailwindCSS"] },
   { label: "Data & outils", skills: ["MySQL", "SQLite", "MongoDB", "Git", "Docker", "Postman"] },
 ];
+const skillLevels: Record<string, number> = {
+  Laravel: 92, "PHP 8": 90, Livewire: 88, "REST API": 89, "Laravel Echo / Reverb": 82,
+  ReactJS: 86, "Vue.js": 78, InertiaJS: 84, "Alpine.js": 80, TailwindCSS: 91,
+  MySQL: 88, SQLite: 82, MongoDB: 74, Git: 90, Docker: 78, Postman: 86,
+};
 
 const projects = [
   {
@@ -209,6 +215,7 @@ function SectionHeading({ eyebrow, title, detail }: { eyebrow: string; title: st
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window === "undefined") return true;
     return window.localStorage.getItem("mamadou-portfolio-theme") !== "light";
@@ -244,6 +251,12 @@ export default function Home() {
     window.localStorage.setItem("mamadou-portfolio-theme", darkMode ? "dark" : "light");
     return () => document.body.classList.remove("light-mode");
   }, [darkMode]);
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 520);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   useEffect(() => {
     const revealItems = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     const revealObserver = new IntersectionObserver(
@@ -422,7 +435,10 @@ export default function Home() {
               {skillGroups.map((group) => (
                 <div className="skill-group" key={group.label}>
                   <div className="skill-group-head"><span>{group.label}</span><small>{String(group.skills.length).padStart(2, "0")} technologies</small></div>
-                  <div className="skill-pills">{group.skills.map((skill) => <span key={skill}>{skill}<Check size={13} /></span>)}</div>
+                  <div className="skill-bars">{group.skills.map((skill) => {
+                    const level = skillLevels[skill] ?? 75;
+                    return <div className="skill-meter" key={skill}><div className="skill-meter-label"><span>{skill}</span><strong>{level}%</strong></div><div className="skill-meter-track" role="progressbar" aria-label={`${skill} mastery`} aria-valuenow={level} aria-valuemin={0} aria-valuemax={100}><span style={{ "--skill-level": `${level}%` } as CSSProperties} /></div></div>;
+                  })}</div>
                 </div>
               ))}
             </div>
@@ -482,6 +498,9 @@ export default function Home() {
         </section>
       </main>
 
+      <button className={`back-to-top ${showBackToTop ? "is-visible" : ""}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label={tr("Retour en haut de page", "Back to top")} tabIndex={showBackToTop ? 0 : -1}>
+        <ArrowUp size={17} /> <span>{tr("Haut", "Top")}</span>
+      </button>
     </div>
   );
 }
