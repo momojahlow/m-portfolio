@@ -143,6 +143,24 @@ const skillLevels: Record<string, number> = {
   ReactJS: 86, "Vue.js": 78, InertiaJS: 84, "Alpine.js": 80, TailwindCSS: 91,
   MySQL: 88, SQLite: 82, MongoDB: 74, Git: 90, Docker: 78, Postman: 86,
 };
+const skillDescriptions: Record<string, { fr: string; en: string }> = {
+  Laravel: { fr: "Framework PHP principal pour construire des applications robustes.", en: "Primary PHP framework for building robust applications." },
+  "PHP 8": { fr: "Langage serveur moderne pour une logique métier fiable.", en: "Modern server-side language for reliable business logic." },
+  Livewire: { fr: "Interfaces réactives Laravel sans complexité JavaScript inutile.", en: "Reactive Laravel interfaces without unnecessary JavaScript complexity." },
+  "REST API": { fr: "Conception d'API claires pour connecter les services et produits.", en: "Clear API design for connecting services and products." },
+  "Laravel Echo / Reverb": { fr: "Événements temps réel, notifications et collaboration en direct.", en: "Real-time events, notifications and live collaboration." },
+  ReactJS: { fr: "Interfaces composables, rapides et maintenables.", en: "Composable, fast and maintainable interfaces." },
+  "Vue.js": { fr: "Création d'interfaces progressives et agréables à utiliser.", en: "Progressive and pleasant interface development." },
+  InertiaJS: { fr: "Pont fluide entre backend Laravel et frontend moderne.", en: "Smooth bridge between Laravel backends and modern frontends." },
+  "Alpine.js": { fr: "Interactions légères directement au plus près du HTML.", en: "Lightweight interactions close to the HTML." },
+  TailwindCSS: { fr: "Systèmes d'interface cohérents et rapides à faire évoluer.", en: "Consistent interface systems that evolve quickly." },
+  MySQL: { fr: "Modélisation et requêtes pour des données métier structurées.", en: "Modeling and querying structured business data." },
+  SQLite: { fr: "Base légère pour prototypes, outils et environnements embarqués.", en: "Lightweight database for prototypes and embedded tools." },
+  MongoDB: { fr: "Stockage flexible pour données documentaires et évolutives.", en: "Flexible storage for evolving document-based data." },
+  Git: { fr: "Versionnement, collaboration et livraisons maîtrisées.", en: "Version control, collaboration and controlled delivery." },
+  Docker: { fr: "Environnements reproductibles pour développer et déployer sereinement.", en: "Reproducible environments for confident development and deployment." },
+  Postman: { fr: "Tests et documentation des API pendant tout le cycle produit.", en: "API testing and documentation throughout the product cycle." },
+};
 
 const projects = [
   {
@@ -437,7 +455,8 @@ export default function Home() {
                   <div className="skill-group-head"><span>{group.label}</span><small>{String(group.skills.length).padStart(2, "0")} technologies</small></div>
                   <div className="skill-bars">{group.skills.map((skill) => {
                     const level = skillLevels[skill] ?? 75;
-                    return <div className="skill-meter" key={skill}><div className="skill-meter-label"><span>{skill}</span><strong>{level}%</strong></div><div className="skill-meter-track" role="progressbar" aria-label={`${skill} mastery`} aria-valuenow={level} aria-valuemin={0} aria-valuemax={100}><span style={{ "--skill-level": `${level}%` } as CSSProperties} /></div></div>;
+                    const description = skillDescriptions[skill]?.[isEnglish ? "en" : "fr"] ?? "";
+                    return <div className="skill-meter" key={skill} tabIndex={0} data-description={description}><div className="skill-meter-label"><span>{skill}</span><strong>{level}%</strong></div><div className="skill-meter-track" role="progressbar" aria-label={`${skill} mastery`} aria-valuenow={level} aria-valuemin={0} aria-valuemax={100}><span style={{ "--skill-level": `${level}%` } as CSSProperties} /></div></div>;
                   })}</div>
                 </div>
               ))}
