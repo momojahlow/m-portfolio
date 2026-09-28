@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import heroOrbit from "@/assets/portfolio/mamadou-hero-orbit.webp";
 import cvFile from "@/assets/portfolio/MamadouDIALLOkiwicv.pdf";
 import geosoCapture from "@/assets/portfolio/geoso.png";
@@ -28,6 +28,7 @@ import {
   Mail,
   MapPin,
   Menu,
+  Moon,
   MonitorCog,
   MousePointer2,
   Phone,
@@ -40,6 +41,7 @@ import {
   TerminalSquare,
   UserRound,
   X,
+  Sun,
 } from "lucide-react";
 
 const cvUrl = cvFile;
@@ -207,6 +209,12 @@ function SectionHeading({ eyebrow, title, detail }: { eyebrow: string; title: st
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.localStorage.getItem("mamadou-portfolio-theme") !== "light";
+  });
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
+  const [contactStatus, setContactStatus] = useState("");
   const [language, setLanguage] = useState<"fr" | "en">(() => {
     if (typeof window === "undefined") return "fr";
     return window.localStorage.getItem("mamadou-portfolio-language") === "en" ? "en" : "fr";
@@ -232,6 +240,11 @@ export default function Home() {
     window.localStorage.setItem("mamadou-portfolio-language", language);
   }, [isEnglish, language]);
   useEffect(() => {
+    document.body.classList.toggle("light-mode", !darkMode);
+    window.localStorage.setItem("mamadou-portfolio-theme", darkMode ? "dark" : "light");
+    return () => document.body.classList.remove("light-mode");
+  }, [darkMode]);
+  useEffect(() => {
     const revealItems = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     const revealObserver = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
@@ -249,6 +262,14 @@ export default function Home() {
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
+  };
+  const toggleTheme = () => setDarkMode((current) => !current);
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const subject = `${tr("Message portfolio de", "Portfolio message from")} ${contactForm.name}`;
+    const body = `${tr("Nom", "Name")}: ${contactForm.name}\n${tr("Email", "Email")}: ${contactForm.email}\n\n${contactForm.message}`;
+    window.location.href = `mailto:md.mamadoudiallo@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setContactStatus(tr("Votre messagerie va s'ouvrir avec le message prêt à envoyer.", "Your email client will open with the message ready to send."));
   };
 
   return (
@@ -268,6 +289,7 @@ export default function Home() {
             </button>
           ))}
           <button className="mobile-language" onClick={() => setLanguage(isEnglish ? "fr" : "en")}><Languages size={15} /> {isEnglish ? "Passer en français" : "Switch to English"}</button>
+          <button className="mobile-theme" onClick={toggleTheme}>{darkMode ? <Sun size={15} /> : <Moon size={15} />} {darkMode ? tr("Mode clair", "Light mode") : tr("Mode sombre", "Dark mode")}</button>
           <a href={cvUrl} download className="mobile-cv"><Download size={15} /> {tr("Télécharger le CV", "Download CV")}</a>
         </div>
       )}
@@ -292,6 +314,9 @@ export default function Home() {
         </a>
         <button className="language-toggle" onClick={() => setLanguage(isEnglish ? "fr" : "en")} aria-label={isEnglish ? "Passer en français" : "Switch to English"} data-tooltip={isEnglish ? "Français" : "English"}>
           <Languages size={13} /> <span>{isEnglish ? "FR" : "EN"}</span>
+        </button>
+        <button className="theme-toggle" onClick={toggleTheme} aria-label={darkMode ? "Activer le mode clair" : "Activer le mode sombre"} data-tooltip={darkMode ? "Mode clair" : "Mode sombre"}>
+          {darkMode ? <Sun size={14} /> : <Moon size={14} />}
         </button>
         <div className="rail-socials">
           <a href={emailComposeUrl} target="_blank" rel="noreferrer" aria-label="Envoyer un email à Mamadou Diallo" title="Envoyer un email"><Mail size={14} /></a>
@@ -443,6 +468,14 @@ export default function Home() {
               <a className="contact-link" href="tel:+2120635178483"><span className="contact-icon"><Phone size={19} /></span><span><small>Téléphone</small>+212 06 35 17 84 83</span><ArrowUpRight size={17} /></a>
               <div className="contact-location"><span className="contact-icon"><MapPin size={19} /></span><span><small>Localisation</small>Casablanca, Maroc</span></div>
               <a className="contact-cta" href="mailto:md.mamadoudiallo@gmail.com?subject=Projet%20web%20—%20Mamadou%20Diallo"><Send size={17} /> Démarrer une conversation <ArrowUpRight size={17} /></a>
+              <form className="contact-form" onSubmit={handleContactSubmit}>
+                <p className="contact-form-title">{tr("Écrivez-moi directement", "Write to me directly")}</p>
+                <label><span>{tr("Nom", "Name")}</span><input required value={contactForm.name} onChange={(event) => setContactForm({ ...contactForm, name: event.target.value })} placeholder={tr("Votre nom", "Your name")} /></label>
+                <label><span>Email</span><input required type="email" value={contactForm.email} onChange={(event) => setContactForm({ ...contactForm, email: event.target.value })} placeholder="vous@exemple.com" /></label>
+                <label><span>{tr("Message", "Message")}</span><textarea required rows={4} value={contactForm.message} onChange={(event) => setContactForm({ ...contactForm, message: event.target.value })} placeholder={tr("Parlez-moi de votre projet…", "Tell me about your project…")} /></label>
+                <button className="contact-form-submit" type="submit"><Send size={16} /> {tr("Préparer l'email", "Prepare email")}</button>
+                {contactStatus && <p className="contact-form-status" role="status">{contactStatus}</p>}
+              </form>
             </div>
           </div>
           <div className="page-width footer-line"><span>MD<span className="accent-dot">.</span></span><span>Conçu & développé avec soin</span><span>2026 · Casablanca</span></div>
